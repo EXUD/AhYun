@@ -102,7 +102,7 @@ while True:
             # Check if row has 6 cards
             if len(board[tmp[len(tmp)-1][1]]) > 6:
                 player[1][submitted[i][1]] -= rowScore(board[tmp[len(tmp)-1][1]])
-                for j in range(len(board[tmp[len(tmp)-1][1]])-1):
+                for j in range(len(board[tmp[len(tmp)-1][1]])-2):
                     board[tmp[len(tmp)-1][1]].pop(1)
         else: # If the card cannot be placed
             rows = []
@@ -139,3 +139,4 @@ print("1st : " + str(tmp[3][1]) + " " + str(tmp[3][0]))
 print("2nd : " + str(tmp[2][1]) + " " + str(tmp[2][0]))
 print("3rd : " + str(tmp[1][1]) + " " + str(tmp[1][0]))
 print("4th : " + str(tmp[0][1]) + " " + str(tmp[0][0]))
+input()

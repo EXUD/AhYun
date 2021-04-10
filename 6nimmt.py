@@ -1,46 +1,28 @@
 import random
 
-# Function to check if input is integer and in range
-def inputCheck(Question, min, max):
-    while True:
-        try:
-            tmp = int(input(Question))
-            if tmp < min or tmp > max: int("a")
-            else: return tmp
-        except:
-            print("Invalid input!")
-
-# Function to show the board
-def showBoard(board):
-    print("=======\n Board\n=======\n")
-    for i in range(len(board)):
-        tmp = "  "
-        for j in range(1, len(board[i])):
-            if board[i][j] < 10:
-                tmp += "  "
-            elif board[i][j] < 100:
-                tmp += " "
-            tmp += str(board[i][j]) + "  "
-        print(tmp + "\n")
-    print("--------------------------------")
-
 # Function to calculate how much is to be deducted
 def rowScore(row):
     total = 0
     for i in range(1, len(row)):
-        if row[i] == 55: total += 7
-        elif row[i] % 11 == 0: total += 5
-        elif row[i] % 10 == 0: total += 3
-        elif row[i] % 5 == 0: total += 2
+        if row[i] == 55: 
+            total += 7
+        elif row[i] % 11 == 0: 
+            total += 5
+        elif row[i] % 10 == 0: 
+            total += 3
+        elif row[i] % 5 == 0: 
+            total += 2
         else: total += 1
     return total
 
+# Set empty hands, scores, names for player
 player = [[[],[],[],[]],[66,66,66,66],["You","Alice","Bob","Charlie"]]
 
+# Loop until until a player has score lower than 1
 while True:
     # Check if reset cards
     if len(player[0][0]) == 0:
-        print("-- Setting cards now --")
+        print(" -- Setting cards now --")
         # Set the 104 cards in the cardpool
         cardpool = []
         for i in range(1, 105):
@@ -61,18 +43,38 @@ while True:
                 player[0][i].append(cardpool[tmp])
                 cardpool.pop(tmp)
             player[0][i].sort()
-
-    showBoard(board)
+    
+    # Show the board
+    print(" =======\n  Board\n =======\n")
+    for i in range(len(board)):
+        tmp = "   "
+        for j in range(1, len(board[i])):
+            if board[i][j] < 10:
+                tmp += "  "
+            elif board[i][j] < 100:
+                tmp += " "
+            tmp += str(board[i][j]) + "  "
+        print(tmp + "\n")
+    print(" --------------------------------")
 
     # Display hand of player
-    tmp = "Your cards:  "
+    tmp = " Your cards:  "
     for i in range(len(player[0][0])):
         tmp += str(player[0][0][i]) + "  "
     print(tmp)
 
     # Ask player to play Card
-    tmp = inputCheck("Please select a card(1-" + str(len(player[0][0])) + "):  ", 1, len(player[0][0])) - 1 
-    print("--------------------------------\n")
+    while True:
+        try:
+            tmp = int(input(" Please select a card(1-" + str(len(player[0][0])) + "):  "))
+            if tmp < 1 or tmp > len(player[0][0]): 
+                int("a")
+            else: 
+                tmp -= 1
+                break
+        except:
+            print(" Invalid input!")
+    print(" --------------------------------\n")
 
     # Append player choice and random selection for robots to array
     submitted = []
@@ -86,7 +88,7 @@ while True:
     submitted.sort()
     # Show cards dealt
     for i in range(len(player[0])):
-        print(str(player[2][submitted[i][1]]) + ": " + str(submitted[i][0]))
+        print(" " + str(player[2][submitted[i][1]]) + ": " + str(submitted[i][0]))
     
     # Append cards to board and calculate scores
     for i in range(len(submitted)):
@@ -117,11 +119,11 @@ while True:
             board[rows[0][1]].append(submitted[i][0])
 
     # Show scores
-    tmp = "\nCurrent Scores:  "
+    tmp = "\n Current Scores:  "
     for i in range(len(player[1])):
         if player[1][i] < 10 and player[1][i] > 0:
             tmp += " "
-        tmp += str(player[1][i]) + "  "
+        tmp += str(player[1][i]) + "(" + player[2][i] + ")  "
     print(tmp + "\n\n\n")
 
     # Check if anyone has a score lower than 1
@@ -133,10 +135,10 @@ while True:
         break
 
 # Announce game has ended and scores
-print("----------------")
-print("The game has ended!")
-print("1st : " + str(tmp[3][1]) + " " + str(tmp[3][0]))
-print("2nd : " + str(tmp[2][1]) + " " + str(tmp[2][0]))
-print("3rd : " + str(tmp[1][1]) + " " + str(tmp[1][0]))
-print("4th : " + str(tmp[0][1]) + " " + str(tmp[0][0]))
+print(" ----------------")
+print(" The game has ended!")
+print(" 1st : " + str(tmp[3][1]) + " " + str(tmp[3][0]))
+print(" 2nd : " + str(tmp[2][1]) + " " + str(tmp[2][0]))
+print(" 3rd : " + str(tmp[1][1]) + " " + str(tmp[1][0]))
+print(" 4th : " + str(tmp[0][1]) + " " + str(tmp[0][0]))
 input()
